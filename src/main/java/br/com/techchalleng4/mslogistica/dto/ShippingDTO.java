@@ -1,8 +1,9 @@
 package br.com.techchalleng4.mslogistica.dto;
 
-import br.com.techchalleng4.mslogistica.enums.ShippingStatus;
+import br.com.techchalleng4.mslogistica.model.Address;
 import lombok.Builder;
 
+import java.util.List;
 import java.util.UUID;
 
 @Builder
@@ -11,5 +12,6 @@ public record ShippingDTO(
         String orderCode,
         String recipient,
         String status,
-        String zipCode
+        AddressDTO address,
+        List<ProductDTO> products
 ){}

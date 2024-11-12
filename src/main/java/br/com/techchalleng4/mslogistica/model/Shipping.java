@@ -5,12 +5,13 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Getter
 @Builder
-@Table( name = "tb_shippings")
+@Table( name = "shippings")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,6 +27,10 @@ public class Shipping implements Serializable {
 
     private ShippingStatus status;
 
-    private String zipCode;
+    @OneToOne(mappedBy = "shipping", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Address shippingAddress;
+
+    @OneToMany(mappedBy = "shipping", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> products;
 
 }
