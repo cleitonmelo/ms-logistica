@@ -26,13 +26,5 @@ public class ShippingMapper {
                 .status(ShippingStatus.OrderReceived)
                 .recipient(shippingDTO.recipient())
                 .build();
-
-        /*return new Shipping(
-                shippingDTO.id(),
-                shippingDTO.orderCode(),
-                shippingDTO.recipient(),
-                ShippingStatus.OrderReceived,
-                shippingDTO.zipCode()
-        );*/
     }
 }
