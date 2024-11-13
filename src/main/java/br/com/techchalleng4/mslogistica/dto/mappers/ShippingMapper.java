@@ -20,7 +20,7 @@ public class ShippingMapper {
         for (Product product : shipping.getProducts()) {
             Product children = new Product();
             children.setId(product.getId());
-            children.setName(product.getName());
+            children.setQuantity(product.getQuantity());
             children.setCode(product.getCode());
             products.add(children);
         }

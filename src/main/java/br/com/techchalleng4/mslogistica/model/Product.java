@@ -21,7 +21,7 @@ public class Product implements Serializable {
 
     private String code;
 
-    private String name;
+    private String quantity;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "shippingId")

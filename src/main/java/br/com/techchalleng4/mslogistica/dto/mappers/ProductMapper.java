@@ -11,13 +11,13 @@ public class ProductMapper {
     public static ProductDTO toDTO(Product product) {
         return ProductDTO.builder()
                 .code(product.getCode())
-                .name(product.getName()).build();
+                .quantity(product.getQuantity()).build();
     }
 
     public static Product toEntity(ProductDTO produtoDTO, Shipping shipping) {
         return Product.builder()
                 .code(produtoDTO.code())
-                .name(produtoDTO.name())
+                .quantity(produtoDTO.quantity())
                 .shipping(shipping)
                 .build();
     }
