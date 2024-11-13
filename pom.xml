@@ -56,6 +56,13 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
+		<!-- teste de log-->
+		<dependency>
+			<groupId>com.callibrity.logging</groupId>
+			<artifactId>log-tracker</artifactId>
+			<version>1.0.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
