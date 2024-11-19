@@ -14,7 +14,7 @@ public class AddressMapper {
                 .city(address.getCity())
                 .state(address.getState())
                 .country(address.getCountry())
-                .zip(address.getZip())
+                .zipCode(address.getZipCode())
                 .phone(address.getPhone())
                 .build();
     }
@@ -27,7 +27,7 @@ public class AddressMapper {
                 .city(addressDTO.city())
                 .state(addressDTO.state())
                 .country(addressDTO.country())
-                .zip(addressDTO.zip())
+                .zipCode(addressDTO.zipCode())
                 .phone(addressDTO.phone())
                 .shipping(shipping).build();
     }

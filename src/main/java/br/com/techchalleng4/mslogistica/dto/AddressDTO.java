@@ -10,7 +10,7 @@ public record AddressDTO(
         String city,
         String neighborhood,
         String state,
-        Integer zip,
+        Integer zipCode,
         String country,
         String phone
 ) {

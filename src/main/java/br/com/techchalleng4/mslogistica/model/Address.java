@@ -30,7 +30,7 @@ public class Address {
 
     private String state;
 
-    private Integer zip;
+    private Integer zipCode;
 
     private String country;
 
