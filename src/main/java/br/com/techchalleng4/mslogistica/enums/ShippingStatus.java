@@ -1,8 +1,14 @@
 package br.com.techchalleng4.mslogistica.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum ShippingStatus {
 
-    OrderReceived("Pedido Recebido");
+    OrderReceived("Pedido Recebido"),
+    WithOrderCarrier ("Pedido com a Transpostadora"),
+    DeliveryRoute("Pedido em Rota de Entrega"),
+    OrderDelivered("Pedido Entregue");
 
     private String description;
 
@@ -10,7 +16,4 @@ public enum ShippingStatus {
         this.description = status;
     }
 
-    public String getDescription() {
-        return description;
-    }
 }

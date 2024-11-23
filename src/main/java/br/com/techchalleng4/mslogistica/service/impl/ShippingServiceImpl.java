@@ -15,6 +15,7 @@ import br.com.techchalleng4.mslogistica.repository.CarrierRepository;
 import br.com.techchalleng4.mslogistica.repository.ProductRepository;
 import br.com.techchalleng4.mslogistica.repository.ShippingRepository;
 import br.com.techchalleng4.mslogistica.service.ShippingService;
+import br.com.techchalleng4.mslogistica.service.TrackingService;
 import jakarta.persistence.GeneratedValue;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
