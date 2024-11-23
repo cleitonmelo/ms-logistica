@@ -7,8 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.logging.Logger;
+
 @Component
 public class JobScheduler {
+
+    @Autowired
+    private static final Logger logger = Logger.getLogger(JobScheduler.class.getName());
 
     @Autowired
     private JobLauncher jobLauncher;
@@ -18,7 +23,7 @@ public class JobScheduler {
 
     @Scheduled(fixedRate = 60000)
     public void runJob() {
-        System.out.println("Running job Scheduled");
+        logger.info("Executando jobs de Pedidos ....");
         try {
             jobLauncher.run(job, new JobParametersBuilder()
                     .addLong("time", System.currentTimeMillis())

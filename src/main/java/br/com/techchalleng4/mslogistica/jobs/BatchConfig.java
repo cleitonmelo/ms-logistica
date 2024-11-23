@@ -27,7 +27,8 @@ public class BatchConfig {
     }
 
     @Bean
-    public Step step(JobRepository jobRepository, PlatformTransactionManager transactionManager){
+    public Step step(JobRepository jobRepository,
+                     PlatformTransactionManager transactionManager){
         return new StepBuilder("step", jobRepository)
                 .<String, String> chunk(20,transactionManager )
                 .reader(reader())
