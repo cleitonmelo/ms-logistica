@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -17,11 +16,13 @@ public class Carrier implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long code;
+    private Integer code;
 
     private String name;
 
     private Integer zipCodeStart;
 
     private Integer zipCodeEnd;
+
+    private Integer delivery_limit_days;
 }

@@ -36,6 +36,7 @@ public class ShippingMapper {
     }
 
     public static Shipping toEntity(ShippingDTO shippingDTO) {
+        System.out.println(shippingDTO.status());
         return Shipping.builder()
                 .id(shippingDTO.id())
                 .orderCode(shippingDTO.orderCode())

@@ -6,6 +6,7 @@ import br.com.techchalleng4.mslogistica.dto.ShippingDTO;
 import br.com.techchalleng4.mslogistica.dto.mappers.AddressMapper;
 import br.com.techchalleng4.mslogistica.dto.mappers.ProductMapper;
 import br.com.techchalleng4.mslogistica.dto.mappers.ShippingMapper;
+import br.com.techchalleng4.mslogistica.enums.ShippingStatus;
 import br.com.techchalleng4.mslogistica.model.Address;
 import br.com.techchalleng4.mslogistica.model.Carrier;
 import br.com.techchalleng4.mslogistica.model.Product;
@@ -14,6 +15,7 @@ import br.com.techchalleng4.mslogistica.repository.AddressRepository;
 import br.com.techchalleng4.mslogistica.repository.CarrierRepository;
 import br.com.techchalleng4.mslogistica.repository.ProductRepository;
 import br.com.techchalleng4.mslogistica.repository.ShippingRepository;
+import br.com.techchalleng4.mslogistica.service.CarrierService;
 import br.com.techchalleng4.mslogistica.service.ShippingService;
 import br.com.techchalleng4.mslogistica.service.TrackingService;
 import jakarta.persistence.GeneratedValue;
@@ -40,6 +42,8 @@ public class ShippingServiceImpl implements ShippingService {
     @Autowired
     private final AddressRepository addressRepository;
 
+    @Autowired
+    private final CarrierRepository carrierRepository;
 
     @Override
     public ShippingDTO create(ShippingDTO shippingDTO) {
@@ -68,8 +72,52 @@ public class ShippingServiceImpl implements ShippingService {
     }
 
     @Override
-    public Page<ShippingDTO> get(Pageable pageable) {
+    public Page<ShippingDTO> getAll(Pageable pageable) {
         Page<Shipping> shippings = shippingRepository.findAll(pageable);
         return shippings.map(ShippingMapper::toDTO);
+    }
+
+    @Override
+    public void finished(String shippingId) {
+        Shipping shipping = shippingRepository
+                .findById(UUID.fromString(shippingId)).orElse(null);
+
+        if ( shipping != null ){
+            shipping.setStatus(ShippingStatus.OrderDelivered);
+            shippingRepository.save(shipping);
+        }
+    }
+
+    @Override
+    public ShippingDTO get(String shippingId) {
+        Shipping shipping = shippingRepository
+                .findById(UUID.fromString(shippingId)).orElse(null);
+
+        if ( shipping != null ){
+            shipping.setStatus(ShippingStatus.OrderDelivered);
+            shippingRepository.save(shipping);
+            return ShippingMapper.toDTO(shipping);
+        }
+
+        return null;
+    }
+
+    @Override
+    public void associateCarrier() {
+        List<Shipping> shippings = shippingRepository.findByStatus(ShippingStatus.OrderReceived);
+        for (Shipping shipping : shippings) {
+
+            if ( shipping.getShippingAddress().getZipCode() != null ){
+                for ( Carrier carrier : getCarrierByZipCode(
+                        shipping.getShippingAddress().getZipCode() ) ) {
+                    System.out.println(carrier.toString());
+                }
+                System.out.println(shipping.getShippingAddress().getZipCode());
+            }
+        }
+    }
+
+    private List<Carrier> getCarrierByZipCode(Integer zipCode) {
+        return carrierRepository.findByZipCode(zipCode.toString());
     }
 }

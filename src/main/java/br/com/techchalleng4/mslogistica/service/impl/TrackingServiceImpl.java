@@ -1,6 +1,5 @@
 package br.com.techchalleng4.mslogistica.service.impl;
 
-import br.com.techchalleng4.mslogistica.dto.ShippingDTO;
 import br.com.techchalleng4.mslogistica.dto.TrackingDTO;
 import br.com.techchalleng4.mslogistica.dto.mappers.TrackingMapper;
 import br.com.techchalleng4.mslogistica.model.Tracking;
@@ -21,9 +20,5 @@ public class TrackingServiceImpl implements TrackingService {
     public Page<TrackingDTO> getAll(Pageable pageable) {
         Page<Tracking> trackings = trackingRepository.findAll(pageable);
         return trackings.map(TrackingMapper::toDTO);
-    }
-
-    public static void createTracking(ShippingDTO shippingDTO) {
-        System.out.println(shippingDTO);
     }
 }

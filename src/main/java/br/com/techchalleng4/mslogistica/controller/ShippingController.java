@@ -19,14 +19,32 @@ public class ShippingController {
 
     @GetMapping
     public ResponseEntity<Page<ShippingDTO>> findAll(Pageable pageable) {
-        Page<ShippingDTO> shippings = shippingService.get(pageable);
+        Page<ShippingDTO> shippings = shippingService.getAll(pageable);
         return ResponseEntity.ok(shippings);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ShippingDTO> get(@PathVariable String id) {
+        ShippingDTO shippingDTO = shippingService.get(id);
+        return ResponseEntity.ok(shippingDTO);
     }
 
     @PostMapping
     public ResponseEntity<ShippingDTO> insert(@RequestBody ShippingDTO shippingDTO) {
         ShippingDTO shipping = shippingService.create(shippingDTO);
         return ResponseEntity.ok(shipping);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ShippingDTO> finished(@PathVariable String id) {
+        shippingService.finished(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/associate")
+    public ResponseEntity<ShippingDTO> associateShipping() {
+        shippingService.associateCarrier();
+        return ResponseEntity.noContent().build();
     }
 
 }
