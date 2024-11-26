@@ -39,4 +39,7 @@ public class Shipping implements Serializable {
 
     private LocalDate deliveryDate;
 
+    @OneToOne(mappedBy = "shipping", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Tracking shippingTracking;
+
 }

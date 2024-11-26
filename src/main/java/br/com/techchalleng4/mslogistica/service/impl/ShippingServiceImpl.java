@@ -21,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -83,6 +84,7 @@ public class ShippingServiceImpl implements ShippingService {
 
         if ( shipping != null ){
             shipping.setStatus(ShippingStatus.OrderDelivered);
+            shipping.setDeliveryDate(LocalDate.now());
             shippingRepository.save(shipping);
         }
     }
@@ -91,14 +93,7 @@ public class ShippingServiceImpl implements ShippingService {
     public ShippingDTO get(String shippingId) {
         Shipping shipping = shippingRepository
                 .findById(UUID.fromString(shippingId)).orElse(null);
-
-        if ( shipping != null ){
-            shipping.setStatus(ShippingStatus.OrderDelivered);
-            shippingRepository.save(shipping);
-            return ShippingMapper.toDTO(shipping);
-        }
-
-        return null;
+        return shipping != null ? ShippingMapper.toDTO(shipping) : null;
     }
 
     @Override
@@ -110,6 +105,7 @@ public class ShippingServiceImpl implements ShippingService {
                 Carrier carrier = carrierRepository.findByZipCode(
                         shipping.getShippingAddress().getZipCode()
                 );
+                shipping.setShippingDate(LocalDate.now());
                 saveTracking(carrier, shipping);
                 shipping.setStatus(ShippingStatus.WithOrderCarrier);
                 shippingRepository.save(shipping);

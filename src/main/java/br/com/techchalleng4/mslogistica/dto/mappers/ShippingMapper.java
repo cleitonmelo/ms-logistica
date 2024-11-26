@@ -31,12 +31,14 @@ public class ShippingMapper {
                 .recipient(shipping.getRecipient())
                 .status(shipping.getStatus().getDescription())
                 .address(AddressMapper.toDTO(shipping.getShippingAddress()))
+                .shippingDate(shipping.getShippingDate())
+                .deliveryDate(shipping.getDeliveryDate())
                 .products(products.stream().map(ProductMapper::toDTO).collect(Collectors.toList()))
+                .tracking(shipping.getShippingTracking() != null ? TrackingMapper.toDTO(shipping.getShippingTracking()) : null)
                 .build();
     }
 
     public static Shipping toEntity(ShippingDTO shippingDTO) {
-        System.out.println(shippingDTO.status());
         return Shipping.builder()
                 .id(shippingDTO.id())
                 .orderCode(shippingDTO.orderCode())

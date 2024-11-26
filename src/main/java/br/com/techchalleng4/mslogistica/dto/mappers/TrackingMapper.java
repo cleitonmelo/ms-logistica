@@ -6,13 +6,14 @@ import br.com.techchalleng4.mslogistica.model.Shipping;
 import br.com.techchalleng4.mslogistica.model.Tracking;
 import lombok.Builder;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 @Builder
 public class TrackingMapper {
 
     public static TrackingDTO toDTO(Tracking tracking) {
         return TrackingDTO.builder()
                 .trackingId(tracking.getId())
-                .shipping(ShippingMapper.toDTO(tracking.getShipping()))
                 .carrier(CarrierMapper.toDTO(tracking.getCarrier()))
                 .latitude(tracking.getLatitude())
                 .longitude(tracking.getLongitude())
@@ -23,8 +24,16 @@ public class TrackingMapper {
         return Tracking.builder()
                 .carrier(carrier)
                 .shipping(shipping)
-                .latitude(22.718285)
-                .longitude(-47.353609)
+                .latitude(getLatitude())
+                .longitude(getLongitude())
                 .build();
+    }
+
+    private static double getLatitude() {
+        return ThreadLocalRandom.current().nextDouble(-90.0, 90.0);
+    }
+
+    private static double getLongitude() {
+        return ThreadLocalRandom.current().nextDouble(-180.0, 180.0);
     }
 }

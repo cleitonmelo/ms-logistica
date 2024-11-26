@@ -23,7 +23,8 @@ public class Tracking  implements Serializable {
     @ManyToOne
     private Carrier carrier;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shippingId")
     private Shipping shipping;
 
     private Double latitude;

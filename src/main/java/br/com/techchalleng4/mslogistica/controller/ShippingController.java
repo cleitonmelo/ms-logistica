@@ -35,7 +35,7 @@ public class ShippingController {
         return ResponseEntity.ok(shipping);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/finished/{id}")
     public ResponseEntity<ShippingDTO> finished(@PathVariable String id) {
         shippingService.finished(id);
         return ResponseEntity.noContent().build();
