@@ -12,5 +12,5 @@ public interface ShippingService {
     Page<ShippingDTO> getAll(Pageable pageable);
     void finished(String shippingId);
     ShippingDTO get(String shippingId);
-    void associateCarrier();
+    void process();
 }

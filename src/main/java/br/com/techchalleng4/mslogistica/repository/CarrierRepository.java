@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface CarrierRepository extends JpaRepository<Carrier, Integer> {
 
-    @Query("SELECT code, name FROM Carrier WHERE zipCodeStart < :zipCode AND zipCodeEnd >= :zipCode")
-    List<Carrier> findByZipCode(@Param("zipCode") String zipCode);
+    @Query(value = "SELECT * FROM CARRIERS WHERE ZIP_CODE_START < :zipCode AND ZIP_CODE_END >= :zipCode LIMIT 1",
+            nativeQuery = true)
+    Carrier findByZipCode(@Param("zipCode") Integer zipCode);
 
 }

@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class TrackingServiceImpl implements TrackingService {
 
@@ -20,5 +22,14 @@ public class TrackingServiceImpl implements TrackingService {
     public Page<TrackingDTO> getAll(Pageable pageable) {
         Page<Tracking> trackings = trackingRepository.findAll(pageable);
         return trackings.map(TrackingMapper::toDTO);
+    }
+
+    @Override
+    public TrackingDTO getById(String id) {
+        Tracking tracking = trackingRepository.findById(UUID.fromString(id)).orElse(null);
+        if ( tracking != null ) {
+            return TrackingMapper.toDTO(tracking);
+        }
+        return null;
     }
 }

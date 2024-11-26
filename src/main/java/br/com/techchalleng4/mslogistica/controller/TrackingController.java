@@ -21,7 +21,13 @@ public class TrackingController {
 
     @GetMapping
     public ResponseEntity<Page<TrackingDTO>> findAll(Pageable pageable) {
-        Page<TrackingDTO> shippings = service.getAll(pageable);
-        return ResponseEntity.ok(shippings);
+        Page<TrackingDTO> trackings = service.getAll(pageable);
+        return ResponseEntity.ok(trackings);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TrackingDTO> findById(@PathVariable("id") String id) {
+        TrackingDTO tracking = service.getById(id);
+        return ResponseEntity.ok(tracking);
     }
 }

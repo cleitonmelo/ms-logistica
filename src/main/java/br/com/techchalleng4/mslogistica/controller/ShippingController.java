@@ -41,9 +41,9 @@ public class ShippingController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/associate")
-    public ResponseEntity<ShippingDTO> associateShipping() {
-        shippingService.associateCarrier();
+    @PostMapping("/process")
+    public ResponseEntity<ShippingDTO> process() {
+        shippingService.process();
         return ResponseEntity.noContent().build();
     }
 

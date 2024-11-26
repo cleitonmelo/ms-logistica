@@ -11,7 +11,7 @@ public record TrackingDTO(
         UUID trackingId,
         Double latitude,
         Double longitude,
-        Carrier carrier,
-        Shipping shipping
+        CarrierDTO carrier,
+        ShippingDTO shipping
 ) {
 }

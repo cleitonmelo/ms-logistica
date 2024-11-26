@@ -16,7 +16,7 @@ public class CarrierServiceImpl implements CarrierService {
     @Autowired
     private final CarrierRepository carrierRepository;
 
-    public List<Carrier> findByZipCode(Integer zipCode) {
-        return carrierRepository.findByZipCode(zipCode.toString());
+    public Carrier findByZipCode(Integer zipCode) {
+        return carrierRepository.findByZipCode(zipCode);
     }
 }

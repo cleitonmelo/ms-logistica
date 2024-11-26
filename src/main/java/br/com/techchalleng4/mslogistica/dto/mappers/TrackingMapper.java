@@ -2,6 +2,7 @@ package br.com.techchalleng4.mslogistica.dto.mappers;
 
 import br.com.techchalleng4.mslogistica.dto.TrackingDTO;
 import br.com.techchalleng4.mslogistica.model.Carrier;
+import br.com.techchalleng4.mslogistica.model.Shipping;
 import br.com.techchalleng4.mslogistica.model.Tracking;
 import lombok.Builder;
 
@@ -11,20 +12,19 @@ public class TrackingMapper {
     public static TrackingDTO toDTO(Tracking tracking) {
         return TrackingDTO.builder()
                 .trackingId(tracking.getId())
-                .shipping(tracking.getShipping())
-                .carrier(tracking.getCarrier())
+                .shipping(ShippingMapper.toDTO(tracking.getShipping()))
+                .carrier(CarrierMapper.toDTO(tracking.getCarrier()))
                 .latitude(tracking.getLatitude())
                 .longitude(tracking.getLongitude())
                 .build();
     }
 
-    public static Tracking toEntity(TrackingDTO trackingDTO) {
+    public static Tracking toEntity(Carrier carrier, Shipping shipping) {
         return Tracking.builder()
-                .id(trackingDTO.trackingId())
-                .carrier(trackingDTO.carrier())
-                .shipping(trackingDTO.shipping())
-                .latitude(trackingDTO.latitude())
-                .longitude(trackingDTO.longitude())
+                .carrier(carrier)
+                .shipping(shipping)
+                .latitude(22.718285)
+                .longitude(-47.353609)
                 .build();
     }
 }

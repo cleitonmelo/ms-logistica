@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface CarrierService {
 
-    List<Carrier> findByZipCode(Integer zipCode);
+    Carrier findByZipCode(Integer zipCode);
 }

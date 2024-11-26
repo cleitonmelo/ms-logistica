@@ -24,5 +24,5 @@ public class Carrier implements Serializable {
 
     private Integer zipCodeEnd;
 
-    private Integer delivery_limit_days;
+    private Integer deliveryLimitDays;
 }

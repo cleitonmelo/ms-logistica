@@ -3,18 +3,14 @@ package br.com.techchalleng4.mslogistica.service.impl;
 import br.com.techchalleng4.mslogistica.dto.AddressDTO;
 import br.com.techchalleng4.mslogistica.dto.ProductDTO;
 import br.com.techchalleng4.mslogistica.dto.ShippingDTO;
+import br.com.techchalleng4.mslogistica.dto.TrackingDTO;
 import br.com.techchalleng4.mslogistica.dto.mappers.AddressMapper;
 import br.com.techchalleng4.mslogistica.dto.mappers.ProductMapper;
 import br.com.techchalleng4.mslogistica.dto.mappers.ShippingMapper;
+import br.com.techchalleng4.mslogistica.dto.mappers.TrackingMapper;
 import br.com.techchalleng4.mslogistica.enums.ShippingStatus;
-import br.com.techchalleng4.mslogistica.model.Address;
-import br.com.techchalleng4.mslogistica.model.Carrier;
-import br.com.techchalleng4.mslogistica.model.Product;
-import br.com.techchalleng4.mslogistica.model.Shipping;
-import br.com.techchalleng4.mslogistica.repository.AddressRepository;
-import br.com.techchalleng4.mslogistica.repository.CarrierRepository;
-import br.com.techchalleng4.mslogistica.repository.ProductRepository;
-import br.com.techchalleng4.mslogistica.repository.ShippingRepository;
+import br.com.techchalleng4.mslogistica.model.*;
+import br.com.techchalleng4.mslogistica.repository.*;
 import br.com.techchalleng4.mslogistica.service.CarrierService;
 import br.com.techchalleng4.mslogistica.service.ShippingService;
 import br.com.techchalleng4.mslogistica.service.TrackingService;
@@ -44,6 +40,9 @@ public class ShippingServiceImpl implements ShippingService {
 
     @Autowired
     private final CarrierRepository carrierRepository;
+
+    @Autowired
+    private final TrackingRepository trackingRepository;
 
     @Override
     public ShippingDTO create(ShippingDTO shippingDTO) {
@@ -103,21 +102,22 @@ public class ShippingServiceImpl implements ShippingService {
     }
 
     @Override
-    public void associateCarrier() {
+    public void process() {
         List<Shipping> shippings = shippingRepository.findByStatus(ShippingStatus.OrderReceived);
         for (Shipping shipping : shippings) {
 
             if ( shipping.getShippingAddress().getZipCode() != null ){
-                for ( Carrier carrier : getCarrierByZipCode(
-                        shipping.getShippingAddress().getZipCode() ) ) {
-                    System.out.println(carrier.toString());
-                }
-                System.out.println(shipping.getShippingAddress().getZipCode());
+                Carrier carrier = carrierRepository.findByZipCode(
+                        shipping.getShippingAddress().getZipCode()
+                );
+                saveTracking(carrier, shipping);
+                shipping.setStatus(ShippingStatus.WithOrderCarrier);
+                shippingRepository.save(shipping);
             }
         }
     }
 
-    private List<Carrier> getCarrierByZipCode(Integer zipCode) {
-        return carrierRepository.findByZipCode(zipCode.toString());
+    private Tracking saveTracking(Carrier carrier, Shipping shipping) {
+        return trackingRepository.save(TrackingMapper.toEntity(carrier,shipping));
     }
 }

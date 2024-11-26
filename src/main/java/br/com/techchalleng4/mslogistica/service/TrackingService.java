@@ -7,5 +7,6 @@ import org.springframework.data.domain.Pageable;
 public interface TrackingService {
 
     Page<TrackingDTO> getAll(Pageable pageable);
+    TrackingDTO getById(String id);
 
 }
