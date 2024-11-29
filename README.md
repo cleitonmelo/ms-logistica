@@ -5,14 +5,10 @@ Micro serviço com a responsabilidade de montar a logistica de entrega de produt
 - Controle de Envios
 - Logistica de seleção de transportadoras / Entregadores
 
-![Visão Macro](docs/assets/macro.png)
-
 ## Stack
 
 - Java 17
 - Spring Boot 3.3.5
-
-![Workflow](docs/assets/workflow.png)
 
 ## Iniciar ambiente dev/local
 
