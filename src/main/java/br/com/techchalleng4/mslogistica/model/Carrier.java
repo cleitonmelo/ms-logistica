@@ -15,7 +15,6 @@ import java.io.Serializable;
 public class Carrier implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer code;
 
     private String name;
