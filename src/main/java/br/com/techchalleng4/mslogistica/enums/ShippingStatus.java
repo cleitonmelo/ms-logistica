@@ -5,10 +5,10 @@ import lombok.Getter;
 @Getter
 public enum ShippingStatus {
 
-    OrderReceived("Pedido Recebido"),
-    WithOrderCarrier ("Pedido com a Transpostadora"),
-    DeliveryRoute("Pedido em Rota de Entrega"),
-    OrderDelivered("Pedido Entregue");
+    ORDER_RECEIVED("Pedido Recebido"),
+    WITH_ORDER_CARRIER("Pedido com a Transpostadora"),
+    DELIVERY_ROUTE("Pedido em Rota de Entrega"),
+    ORDER_DELIVERED("Pedido Entregue");
 
     private String description;
 

@@ -5,6 +5,10 @@ import br.com.techchalleng4.mslogistica.model.Carrier;
 
 public class CarrierMapper {
 
+    private CarrierMapper() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static CarrierDTO toDTO(Carrier carrier) {
         return CarrierDTO.builder()
                 .code(carrier.getCode())

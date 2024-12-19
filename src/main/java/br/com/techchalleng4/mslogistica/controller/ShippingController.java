@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/shippings")
-@RequiredArgsConstructor
 public class ShippingController {
 
-    @Autowired
     private final ShippingService shippingService;
+
+    @Autowired
+    public ShippingController(ShippingService shippingService) {
+        this.shippingService = shippingService;
+    }
 
     @GetMapping
     public ResponseEntity<Page<ShippingDTO>> findAll(Pageable pageable) {

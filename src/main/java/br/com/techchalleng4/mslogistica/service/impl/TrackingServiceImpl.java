@@ -15,8 +15,12 @@ import java.util.UUID;
 @Service
 public class TrackingServiceImpl implements TrackingService {
 
+    private final TrackingRepository trackingRepository;
+
     @Autowired
-    private TrackingRepository trackingRepository;
+    public TrackingServiceImpl(TrackingRepository trackingRepository) {
+        this.trackingRepository = trackingRepository;
+    }
 
     @Override
     public Page<TrackingDTO> getAll(Pageable pageable) {

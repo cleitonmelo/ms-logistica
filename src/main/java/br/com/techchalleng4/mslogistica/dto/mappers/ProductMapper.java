@@ -8,6 +8,10 @@ import lombok.Builder;
 @Builder
 public class ProductMapper {
 
+    private ProductMapper(){
+        throw new IllegalStateException("Utility class");
+    }
+
     public static ProductDTO toDTO(Product product) {
         return ProductDTO.builder()
                 .code(product.getCode())

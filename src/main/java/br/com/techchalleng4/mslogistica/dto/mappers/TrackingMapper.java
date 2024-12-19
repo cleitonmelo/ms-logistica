@@ -11,6 +11,10 @@ import java.util.concurrent.ThreadLocalRandom;
 @Builder
 public class TrackingMapper {
 
+    private TrackingMapper(){
+        throw new IllegalStateException("Utility class");
+    }
+
     public static TrackingDTO toDTO(Tracking tracking) {
         return TrackingDTO.builder()
                 .trackingId(tracking.getId())

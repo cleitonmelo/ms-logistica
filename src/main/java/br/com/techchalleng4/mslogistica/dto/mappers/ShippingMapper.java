@@ -1,6 +1,5 @@
 package br.com.techchalleng4.mslogistica.dto.mappers;
 
-import br.com.techchalleng4.mslogistica.dto.AddressDTO;
 import br.com.techchalleng4.mslogistica.dto.ShippingDTO;
 import br.com.techchalleng4.mslogistica.enums.ShippingStatus;
 import br.com.techchalleng4.mslogistica.model.Product;
@@ -9,10 +8,13 @@ import lombok.Builder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Builder
 public class ShippingMapper {
+
+    private ShippingMapper(){
+        throw new IllegalStateException("Utility class");
+    }
 
     public static ShippingDTO toDTO(Shipping shipping) {
         List<Product> products = new ArrayList<>();
@@ -33,7 +35,7 @@ public class ShippingMapper {
                 .address(AddressMapper.toDTO(shipping.getShippingAddress()))
                 .shippingDate(shipping.getShippingDate())
                 .deliveryDate(shipping.getDeliveryDate())
-                .products(products.stream().map(ProductMapper::toDTO).collect(Collectors.toList()))
+                .products(products.stream().map(ProductMapper::toDTO).toList())
                 .tracking(shipping.getShippingTracking() != null ? TrackingMapper.toDTO(shipping.getShippingTracking()) : null)
                 .build();
     }
@@ -42,7 +44,7 @@ public class ShippingMapper {
         return Shipping.builder()
                 .id(shippingDTO.id())
                 .orderCode(shippingDTO.orderCode())
-                .status(ShippingStatus.OrderReceived)
+                .status(ShippingStatus.ORDER_RECEIVED)
                 .recipient(shippingDTO.recipient())
                 .build();
     }

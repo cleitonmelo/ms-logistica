@@ -1,7 +1,5 @@
 package br.com.techchalleng4.mslogistica.dto;
 
-import br.com.techchalleng4.mslogistica.model.Address;
-import br.com.techchalleng4.mslogistica.model.Carrier;
 import lombok.Builder;
 
 import java.time.LocalDate;

@@ -6,6 +6,10 @@ import br.com.techchalleng4.mslogistica.model.Shipping;
 
 public class AddressMapper {
 
+    private  AddressMapper() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static AddressDTO toDTO(Address address) {
         return AddressDTO.builder()
                 .street(address.getStreet())

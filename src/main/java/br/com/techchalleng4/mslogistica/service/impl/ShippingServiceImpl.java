@@ -3,7 +3,6 @@ package br.com.techchalleng4.mslogistica.service.impl;
 import br.com.techchalleng4.mslogistica.dto.AddressDTO;
 import br.com.techchalleng4.mslogistica.dto.ProductDTO;
 import br.com.techchalleng4.mslogistica.dto.ShippingDTO;
-import br.com.techchalleng4.mslogistica.dto.TrackingDTO;
 import br.com.techchalleng4.mslogistica.dto.mappers.AddressMapper;
 import br.com.techchalleng4.mslogistica.dto.mappers.ProductMapper;
 import br.com.techchalleng4.mslogistica.dto.mappers.ShippingMapper;
@@ -11,11 +10,7 @@ import br.com.techchalleng4.mslogistica.dto.mappers.TrackingMapper;
 import br.com.techchalleng4.mslogistica.enums.ShippingStatus;
 import br.com.techchalleng4.mslogistica.model.*;
 import br.com.techchalleng4.mslogistica.repository.*;
-import br.com.techchalleng4.mslogistica.service.CarrierService;
 import br.com.techchalleng4.mslogistica.service.ShippingService;
-import br.com.techchalleng4.mslogistica.service.TrackingService;
-import jakarta.persistence.GeneratedValue;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,23 +22,26 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class ShippingServiceImpl implements ShippingService {
 
-    @Autowired
     private final ShippingRepository shippingRepository;
 
-    @Autowired
     private final ProductRepository productRepository;
 
-    @Autowired
     private final AddressRepository addressRepository;
 
-    @Autowired
     private final CarrierRepository carrierRepository;
 
-    @Autowired
     private final TrackingRepository trackingRepository;
+
+    @Autowired
+    public ShippingServiceImpl(ShippingRepository shippingRepository, ProductRepository productRepository, AddressRepository addressRepository, CarrierRepository carrierRepository, TrackingRepository trackingRepository) {
+        this.shippingRepository = shippingRepository;
+        this.productRepository = productRepository;
+        this.addressRepository = addressRepository;
+        this.carrierRepository = carrierRepository;
+        this.trackingRepository = trackingRepository;
+    }
 
     @Override
     public ShippingDTO create(ShippingDTO shippingDTO) {
@@ -83,7 +81,7 @@ public class ShippingServiceImpl implements ShippingService {
                 .findById(UUID.fromString(shippingId)).orElse(null);
 
         if ( shipping != null ){
-            shipping.setStatus(ShippingStatus.OrderDelivered);
+            shipping.setStatus(ShippingStatus.ORDER_DELIVERED);
             shipping.setDeliveryDate(LocalDate.now());
             shippingRepository.save(shipping);
         }
@@ -98,7 +96,7 @@ public class ShippingServiceImpl implements ShippingService {
 
     @Override
     public void process() {
-        List<Shipping> shippings = shippingRepository.findByStatus(ShippingStatus.OrderReceived);
+        List<Shipping> shippings = shippingRepository.findByStatus(ShippingStatus.ORDER_RECEIVED);
         for (Shipping shipping : shippings) {
 
             if ( shipping.getShippingAddress().getZipCode() != null ){
@@ -107,7 +105,7 @@ public class ShippingServiceImpl implements ShippingService {
                 );
                 shipping.setShippingDate(LocalDate.now());
                 saveTracking(carrier, shipping);
-                shipping.setStatus(ShippingStatus.WithOrderCarrier);
+                shipping.setStatus(ShippingStatus.WITH_ORDER_CARRIER);
                 shippingRepository.save(shipping);
             }
         }
